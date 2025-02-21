@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming store - Lista de productos</title>
+    <script src="https://kit.fontawesome.com/164308ba52.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script defer src="../assets/js/cart-header.js"></script>
+    <script defer src="../assets/js/cart.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container container">
+            <div>
+                <h1><a href="../index.html">GamingStore</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="./products.html">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="carrito-header">
+                <a href="./cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="carrito-contador">0</span> items - $<span id="carrito-total">0.00</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="carrito container">
+            <h2 class="carrito-titulo">Resumen de la Orden</h2>
+            <div class="carrito-lista">
+                <!-- Aquí se mostrará la orden -->
+            </div>
+
+            <div class="desglose-pago" style="visibility: hidden; opacity: 0;">
+                <h3 id="subtotal">Subtotal: $0</h3>
+                <h3 id="impuesto">Impuesto (7%): $0</h3>
+                <h3 id="total">Total a Pagar: $0</h3>
+            </div>
+
+            <div class="carrito-botones">
+                <div>
+                    <button id="actualizar-carrito" class="btn" style="display: none;">Actualizar</button>
+                </div>
+                <div>
+                    <button id="seguir-comprando" class="btn" style="display: none;">Seguir Comprando</button>
+                </div>
+                <div>
+                    <button id="finalizar-orden" class="btn" style="display: none;">Finalizar Orden</button>
+                </div>
+                <div>
+                    <button id="regresar-menu" class="btn" style="display: none;">Regresar al Menú Principal</button>
+                </div>
+
+        </section>
+    </main>
+
+    <footer>
+        2025 GamingStore. Todos los derechos reservados
+    </footer>
+
+</body>
+
+</html>

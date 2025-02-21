@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden Confirmada</title>
+    <script src="https://kit.fontawesome.com/164308ba52.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script defer src="../assets/js/cart-header.js"></script>
+    <script defer src="../assets/js/order-confirmation.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container container">
+            <div>
+                <h1><a href="../index.html">GamingStore</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="./products.html">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="carrito-header">
+                <a href="./cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="carrito-contador">0</span> items - $<span id="carrito-total">0.00</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="confirmacion container">
+            <h2>¡Gracias por tu compra!</h2>
+            <p>Tu número de orden es: <strong id="numero-orden"></strong></p>
+            <p>Recibirás un correo de confirmación con los detalles de tu compra.</p>
+            <button id="volver-inicio" class="btn">Volver a la Tienda</button>
+        </section>
+    </main>
+
+    <footer>
+        2025 GamingStore. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>

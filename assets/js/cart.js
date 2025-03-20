@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const carritoLista = document.querySelector(".carrito-lista");
+    const carritoLista = document.querySelector(".cart-list");
     const subtotalElement = document.getElementById("subtotal");
-    const impuestoElement = document.getElementById("impuesto");
+    const impuestoElement = document.getElementById("tax");
     const totalElement = document.getElementById("total");
-    const botonActualizar = document.getElementById("actualizar-carrito");
-    const botonFinalizar = document.getElementById("finalizar-orden");
-    const botonSeguirComprando = document.getElementById("seguir-comprando");
+    const botonActualizar = document.getElementById("update-cart");
+    const botonFinalizar = document.getElementById("checkout");
+    const botonSeguirComprando = document.getElementById("continue-shopping");
 
     // Obtener los productos del pedido desde localStorage
     let pedido = JSON.parse(localStorage.getItem("pedido")) || [];
@@ -24,25 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
         let subtotal = 0;
 
         const div = document.createElement("div");
-        div.classList.add("carrito-item");
+        div.classList.add("cart-item");
 
         div.innerHTML = `
-            <div class="productos-cuadro-header">Borrar</div>
-            <div class="productos-cuadro-header">Código</div>
-            <div class="productos-cuadro-header">Descripción</div>
-            <div class="productos-cuadro-header">Precio</div>
-            <div class="productos-cuadro-header">Orden</div>
-            <div class="productos-cuadro-header">total</div>
+            <div class="products-grid-header">Borrar</div>
+            <div class="products-grid-header">Código</div>
+            <div class="products-grid-header">Descripción</div>
+            <div class="products-grid-header">Precio</div>
+            <div class="products-grid-header">Orden</div>
+            <div class="products-grid-header">total</div>
             `;
 
         pedido.forEach((producto, index) => {
 
             div.innerHTML += `
-                <div class="item"><button class="eliminar-btn" data-index="${index}"><i class="fa-solid fa-trash"></i></button></div>
+                <div class="item"><button class="delete-btn" data-index="${index}"><i class="fa-solid fa-trash"></i></button></div>
                 <div class="item item-align-left">${producto.id}</div>
                 <div class="item item-align-left"><strong>${producto.nombre}</strong></div>
                 <div class="item">$${producto.precio}</div>
-                <input type="number" class="cantidad-input" data-index="${index}" min="1" value="${producto.cantidad}">
+                <input type="number" class="quantity-input" data-index="${index}" min="1" value="${producto.cantidad}">
                 <div class="item">$<span class="total-item">${producto.total}</span></div>
 
             `;
@@ -61,14 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("pedido", JSON.stringify(pedido)); // Guardar cambios
 
         // Agregar eventos a los inputs de cantidad
-        document.querySelectorAll(".cantidad-input").forEach(input => {
+        document.querySelectorAll(".quantity-input").forEach(input => {
             input.addEventListener("input", () => { // Cambiar "change" por "input" para detectar cambios en tiempo real
                 mostrarBotonActualizar();
             });
         });
 
         // Agregar eventos a los botones de eliminar
-        document.querySelectorAll(".eliminar-btn").forEach(boton => {
+        document.querySelectorAll(".delete-btn").forEach(boton => {
             boton.addEventListener("click", eliminarProducto);
         });
 
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function actualizarVisibilidadDesglose() {
-        const desglosePago = document.querySelector(".desglose-pago");
+        const desglosePago = document.querySelector(".payment-breakdown");
 
         if (pedido.length === 0) {
             desglosePago.style.visibility = "hidden";
@@ -95,8 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function actualizarVisibilidadBotones() {
-        const botonFinalizar = document.getElementById("finalizar-orden");
-        const botonSeguirComprando = document.getElementById("seguir-comprando");
+        const botonFinalizar = document.getElementById("checkout");
+        const botonSeguirComprando = document.getElementById("continue-shopping");
 
         if (pedido.length === 0) {
             botonFinalizar.style.display = "none";
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function actualizarVisibilidadBotonMenu() {
-        const botonRegresar = document.getElementById("regresar-menu");
+        const botonRegresar = document.getElementById("return-home");
         const carritoVacio = pedido.length === 0;
 
         if (botonRegresar) {
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para actualizar la cantidad de productos
     function actualizarCarrito() {
-        document.querySelectorAll(".cantidad-input").forEach(input => {
+        document.querySelectorAll(".quantity-input").forEach(input => {
             const index = input.dataset.index;
             let nuevaCantidad = parseInt(input.value);
 
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function mostrarBotonActualizar() {
-        const botonActualizar = document.getElementById("actualizar-carrito");
+        const botonActualizar = document.getElementById("update-cart");
         if (botonActualizar) {
             botonActualizar.style.display = "block"; // Asegurar que el botón se muestre cuando el usuario cambia la cantidad
         }
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Evento para finalizar la orden
     botonFinalizar.addEventListener("click", () => {
         const numeroOrden = Math.floor(100000 + Math.random() * 900000); // Genera un número aleatorio
-        localStorage.setItem("numero-orden", numeroOrden); // Guarda el número de orden en localStorage
+        localStorage.setItem("order-number", numeroOrden); // Guarda el número de orden en localStorage
 
         localStorage.removeItem("pedido"); // Limpia el carrito después de finalizar
         window.location.href = "order-confirmation.html"; // Redirige a la página de confirmación
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Evento para regresar al menú principal cuando el carrito está vacío
-    const botonRegresar = document.getElementById("regresar-menu");
+    const botonRegresar = document.getElementById("return-home");
     if (botonRegresar) {
         botonRegresar.addEventListener("click", () => {
             window.location.href = "../index.html";

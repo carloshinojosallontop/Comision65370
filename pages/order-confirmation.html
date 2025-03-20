@@ -10,42 +10,46 @@
     <script defer src="../assets/js/cart-header.js"></script>
     <script defer src="../assets/js/order-confirmation.js"></script>
 </head>
+
 <body>
 
-    <header>
+    <header class="header-site">
         <div class="header-container container">
-            <div>
-                <h1><a href="../index.html">GamingStore</a></h1>
+            <div class="logo-container">
+                <h1 class="logo"><a href="../index.html" class="logo-link">GamingStore</a></h1>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Inicio</a></li>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="./products.html">Productos</a></li>
-                    <li><a href="#">Contacto</a></li>
+
+            <nav class="navbar">
+                <ul class="menu">
+                    <li class="menu-item"><a href="../index.html" class="menu-link">Inicio</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">Nosotros</a></li>
+                    <li class="menu-item"><a href="./products.html" class="menu-link">Productos</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">Contacto</a></li>
                 </ul>
             </nav>
-            <div class="carrito-header">
-                <a href="./cart.html">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="carrito-contador">0</span> items - $<span id="carrito-total">0.00</span>
+
+            <div class="cart-container">
+                <a href="../pages/cart.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping cart-icon"></i>
+                    <span id="cart-counter">0</span> items - $<span id="cart-total">0.00</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <main>
-        <section class="confirmacion container">
+    <main class="main-content">
+        <section class="confirmation container">
             <h2>¡Gracias por tu compra!</h2>
-            <p>Tu número de orden es: <strong id="numero-orden"></strong></p>
+            <p>Tu número de orden es: <strong id="order-number"></strong></p>
             <p>Recibirás un correo de confirmación con los detalles de tu compra.</p>
-            <button id="volver-inicio" class="btn">Volver a la Tienda</button>
+            <button id="back-to-store" class="btn">Volver a la Tienda</button>
         </section>
     </main>
 
-    <footer>
-        2025 GamingStore. Todos los derechos reservados.
+    <footer class="footer">
+        <p class="footer-text">2025 GamingStore. Todos los derechos reservados</p>
     </footer>
 
 </body>
+
 </html>

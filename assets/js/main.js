@@ -15,35 +15,35 @@ const productos = [
 
 
 // Crear y agregar tabla de productos
-const productosLista = document.querySelector(".productos-lista");
+const productosLista = document.querySelector(".products-list");
 
-const cuadro = document.createElement("div");
-cuadro.classList.add("productos-cuadro");
+const productosCuadricula = document.createElement("div");
+productosCuadricula.classList.add("products-grid");
 
-cuadro.innerHTML = `
-  <div class="productos-cuadro-header">Código</div>
-  <div class="productos-cuadro-header">Descripción</div>
-  <div class="productos-cuadro-header">Precio</div>
-  <div class="productos-cuadro-header">Stock</div>
-  <div class="productos-cuadro-header">Orden</div>
+productosCuadricula.innerHTML = ` 
+  <div class="products-grid-header">Código</div>
+  <div class="products-grid-header">Descripción</div>
+  <div class="products-grid-header">Precio</div>
+  <div class="products-grid-header">Stock</div>
+  <div class="products-grid-header">Orden</div>
 `;
 
 productos.forEach(producto => {
-    cuadro.innerHTML += `
+    productosCuadricula.innerHTML += `
     <div class="item item-align-left">${producto.id}</div>
     <div class="item item-align-left">${producto.nombre}</div>
     <div class="item">$${producto.precio}</div>
     <div class="item">${producto.stock}</div>
-    <input type="number" class="cantidad" data-id="${producto.id}" min="0" max="${producto.stock}" value="0">
+    <input type="number" class="quantity" data-id="${producto.id}" min="0" max="${producto.stock}" value="0">
   `;
 });
 
-productosLista.appendChild(cuadro);
+productosLista.appendChild(productosCuadricula);
 
 
 // Crear y agregar boton "Realizar Pedido" al final de productosLista
 const divBoton = document.createElement("div");
-divBoton.classList.add("realizar-pedido");
+divBoton.classList.add("place-order");
 
 const botonPedido = document.createElement("button");
 botonPedido.classList.add("btn");
@@ -56,14 +56,14 @@ productosLista.appendChild(divBoton);
 
 // Agregar funcionalidad al botón "Realizar Pedido"
 botonPedido.addEventListener("click", () => {
-    const inputs = document.querySelectorAll(".cantidad");
-    let nuevosProductos = [];
+    const inputs = document.querySelectorAll(".quantity");
+    let productosAgregados = [];
 
     inputs.forEach(input => {
         const cantidad = parseInt(input.value);
         if (cantidad > 0) {
             const producto = productos.find(item => item.id === Number(input.dataset.id));
-            nuevosProductos.push({
+            productosAgregados.push({
                 id: producto.id,
                 nombre: producto.nombre,
                 cantidad,
@@ -73,12 +73,12 @@ botonPedido.addEventListener("click", () => {
         }
     });
 
-    if (nuevosProductos.length > 0) {
+    if (productosAgregados.length > 0) {
         // Recuperar carrito actual del localStorage
         let carritoActual = JSON.parse(localStorage.getItem("pedido")) || [];
 
         // Combinar productos nuevos con los que ya estaban en el carrito
-        nuevosProductos.forEach(nuevo => {
+        productosAgregados.forEach(nuevo => {
             let productoExistente = carritoActual.find(item => item.id === nuevo.id);
             if (productoExistente) {
                 productoExistente.cantidad += nuevo.cantidad;
@@ -97,11 +97,11 @@ botonPedido.addEventListener("click", () => {
         // Redirigir a cart.html
         window.location.href = "cart.html";
     } else {
-        let mensajeError = document.querySelector(".mensaje-error");
+        let mensajeError = document.querySelector(".error-message");
 
         if (!mensajeError) {
             mensajeError = document.createElement("div");
-            mensajeError.classList.add("mensaje-error");
+            mensajeError.classList.add("error-message");
             mensajeError.textContent = "* No has seleccionado productos";
 
             productosLista.appendChild(mensajeError);

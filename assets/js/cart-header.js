@@ -1,6 +1,6 @@
 function actualizarCarritoHeader() {
-    const carritoContador = document.getElementById("carrito-contador");
-    const carritoTotal = document.getElementById("carrito-total");
+    const carritoContador = document.getElementById("cart-counter");
+    const carritoTotal = document.getElementById("cart-total");
 
     let pedido = JSON.parse(localStorage.getItem("pedido")) || [];
 

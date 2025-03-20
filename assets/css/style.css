@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-/* Estilos generales */
+/* Global */
 
 html,
 body {
@@ -16,8 +16,11 @@ body {
 
 body {
     font-family: "Roboto", serif;
+    font-size: 16px;
+
     background-color: #1a1a1a;
     color: #ffffff;
+
     text-align: center;
 
     display: flex;
@@ -26,7 +29,7 @@ body {
 }
 
 main {
-    flex: 1; 
+    flex: 1;
 }
 
 a {
@@ -44,7 +47,7 @@ input {
 }
 
 /* Header */
-header {
+.header-site {
     background: radial-gradient(circle, #cc0000 40%, #990000 80%);
     padding: 20px;
 
@@ -60,50 +63,52 @@ header {
 }
 
 
-header h1 {
+.logo {
     margin: 0;
     font-size: 28px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4)
 }
 
-nav ul {
+.menu {
     list-style: none;
     padding: 0;
     display: flex;
     gap: 20px;
 }
 
-nav ul li {
+.menu-item {
     display: inline;
 }
 
-nav ul li a {
+.menu-link {
     color: #ffffff;
     text-decoration: none;
     font-size: 18px;
 }
 
-nav ul li a:hover,
-.container .banner .banner-text a:hover {
+.menu-link:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 10px;
 }
 
-.carrito-header {
+.cart-container {
     background: linear-gradient(to bottom, #f09733 30%, #d17a00 100%);
-    padding: 10px 15px;
     border-radius: 5px;
-    font-size: 16px;
+
+    padding: 10px 15px;
+
     color: white;
     font-weight: bold;
+
     display: flex;
     align-items: center;
     gap: 5px;
+
     cursor: pointer;
 }
 
-.carrito-header a {
+.cart-link{
     text-decoration: none;
     color: white;
     display: flex;
@@ -131,31 +136,27 @@ nav ul li a:hover,
     text-align: center;
 }
 
-.banner-texto {
-    padding: 10px;
+.banner-text {
     background-color: #1A1A1A;
+    padding: 10px;
+
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.banner h2 {
+.banner-title {
     font-size: 32px;
     margin-bottom: 10px;
 }
 
-/* Sección de noticias */
-.noticias {
-    padding: 40px 20px;
+/* News*/
+.news {
     background-color: #252525;
+    padding: 40px 20px;
 }
 
-.noticias .noticias-texto h2 {
-    display: block;
-    text-align: center;
-}
-
-.noticias-texto {
+.news-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -163,36 +164,43 @@ nav ul li a:hover,
     gap: 20px;
 }
 
-.noticias article {
+.news-title {
+    display: block;
+    text-align: center;
+}
+
+.news-article {
     margin-bottom: 20px;
     padding: 20px;
+    width: 50%;
+
     background-color: #333;
     border-radius: 10px;
-    width: 50%;
+
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Sección de marcas */
-.marcas {
+/* Brands */
+.brands {
     padding: 40px 20px;
     text-align: center;
 }
 
-.marcas-info {
+.brands-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.marcas-grid {
+.brands-grid {
     display: flex;
     justify-content: center;
     gap: 40px;
 }
 
-.marcas-grid img {
+.brands-logo {
     background-color: transparent;
     width: 100px;
     height: auto;
@@ -205,29 +213,29 @@ footer {
     margin-top: 20px;
 }
 
-
-/* Lista de productos */
-.productos {
+/* Product List */
+.products {
     margin-top: 20px;
+    margin-bottom: 20px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
 }
 
-.productos-titulo {
+.products-title {
     display: block;
     padding: 10px;
 }
 
-.productos-cuadro {
+.products-grid {
     display: grid;
     grid-template-columns: auto 55% repeat(3, auto);
     width: 700px;
 }
 
-.productos-cuadro-header {
+.products-grid-header {
     font-weight: bold;
     background: #E90B00;
     padding: 10px;
@@ -244,14 +252,14 @@ footer {
     justify-content: start;
 }
 
-.cantidad {
+.quantity {
     height: 30px;
     width: 50px;
     justify-self: center;
     align-self: center;
 }
 
-.realizar-pedido {
+.place-order {
     margin-top: 20px;
 }
 
@@ -274,7 +282,7 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 20px;
 }
 
-.mensaje-error {
+.error-message {
     margin-top: 10px;
     font-size: 12px;
 
@@ -282,7 +290,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* carrito de compras */
 
-.carrito {
+.cart {
     margin-top: 20px;
 
     display: flex;
@@ -291,52 +299,52 @@ input[type="number"]::-webkit-inner-spin-button {
     gap: 10px;
 }
 
-.carrito-titulo {
+.cart-title {
     padding: 10px;
 }
 
-.carrito-lista {
+.cart-list {
     display: flex;
     flex-direction: column;
 }
 
-.carrito-item {
+.cart-item {
     display: grid;
     grid-template-columns: auto auto 55% repeat(3, auto);
     width: 700px;
 }
 
-.eliminar-btn {
+.delete-btn {
     padding: 3px;
     cursor: pointer;
 }
 
-.desglose-pago {
+.payment-breakdown {
     display: flex;
     flex-direction: column;
     align-items: end;
     width: 700px;
 }
 
-.desglose-pago h3 {
+.subtotal, .tax, .total {
     padding: 5px;
 }
 
-.cantidad-input {
+.quantity-input {
     height: 30px;
     width: 50px;
     justify-self: center;
     align-self: center;
 }
 
-.carrito-botones {
+.cart-buttons {
     display: flex;
     gap: 10px;
 }
 
 /* confirmacion de la orden */
 
-.confirmacion {
+.confirmation {
     margin-top: 20px;
 
     display: flex;

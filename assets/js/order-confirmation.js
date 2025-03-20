@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const numeroOrden = document.getElementById("numero-orden");
-    const botonVolverInicio = document.getElementById("volver-inicio");
+    const numeroOrden = document.getElementById("order-number");
+    const botonVolverInicio = document.getElementById("back-to-store");
 
     // Obtener el número de orden guardado en localStorage
-    const numeroGuardado = localStorage.getItem("numero-orden");
+    const numeroGuardado = localStorage.getItem("order-number");
 
     if (numeroGuardado) {
         numeroOrden.textContent = `#${numeroGuardado}`; // Mostrar el número de orden guardado

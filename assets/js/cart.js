@@ -32,11 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="products-grid-header">Descripción</div>
             <div class="products-grid-header">Precio</div>
             <div class="products-grid-header">Orden</div>
-            <div class="products-grid-header">total</div>
-            `;
+            <div class="products-grid-header">Total</div>
+        `;
 
         pedido.forEach((producto, index) => {
-
             div.innerHTML += `
                 <div class="item"><button class="delete-btn" data-index="${index}"><i class="fa-solid fa-trash"></i></button></div>
                 <div class="item item-align-left">${producto.id}</div>
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="item">$${producto.precio}</div>
                 <input type="number" class="quantity-input" data-index="${index}" min="1" value="${producto.cantidad}">
                 <div class="item">$<span class="total-item">${producto.total}</span></div>
-
             `;
             subtotal += producto.total;
         });
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Agregar eventos a los inputs de cantidad
         document.querySelectorAll(".quantity-input").forEach(input => {
-            input.addEventListener("input", () => { // Cambiar "change" por "input" para detectar cambios en tiempo real
+            input.addEventListener("input", () => { // Detecta cambios en tiempo real
                 mostrarBotonActualizar();
             });
         });
@@ -75,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Ocultar el botón de actualizar al cargar
         botonActualizar.style.display = "none";
 
-        // Llamar a la funcion para actualizar visibilidad de botones
+        // Actualizar visibilidad de botones y menú
         actualizarVisibilidadBotones();
         actualizarVisibilidadDesglose();
         actualizarVisibilidadBotonMenu();
@@ -84,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function actualizarVisibilidadDesglose() {
         const desglosePago = document.querySelector(".payment-breakdown");
-
         if (pedido.length === 0) {
             desglosePago.style.visibility = "hidden";
             desglosePago.style.opacity = "0";
@@ -97,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function actualizarVisibilidadBotones() {
         const botonFinalizar = document.getElementById("checkout");
         const botonSeguirComprando = document.getElementById("continue-shopping");
-
         if (pedido.length === 0) {
             botonFinalizar.style.display = "none";
             botonSeguirComprando.style.display = "none";
@@ -110,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function actualizarVisibilidadBotonMenu() {
         const botonRegresar = document.getElementById("return-home");
         const carritoVacio = pedido.length === 0;
-
         if (botonRegresar) {
             botonRegresar.style.display = carritoVacio ? "block" : "none";
         }
@@ -118,34 +113,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para actualizar la cantidad de productos
     function actualizarCarrito() {
+        let productosExcedidos = [];
+
+        // Primer recorrido para validar que ninguna cantidad exceda el stock disponible
         document.querySelectorAll(".quantity-input").forEach(input => {
             const index = input.dataset.index;
             let nuevaCantidad = parseInt(input.value);
+            // Convertir el stock a número para asegurar la comparación
+            const stockDisponible = parseInt(pedido[index].stock);
 
+            if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
+                input.value = 1;
+            } else if (nuevaCantidad > stockDisponible) {
+                productosExcedidos.push(pedido[index].nombre);
+            }
+        });
+
+        // Si existen productos con cantidad superior al stock, se muestra alerta y se cancela la actualización
+        if (productosExcedidos.length > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de stock',
+                text: 'No hay las cantidades solicitadas en: ' + productosExcedidos.join(', ')
+            });
+            return;
+        }
+
+        // Segundo recorrido para actualizar el pedido si no hay errores
+        document.querySelectorAll(".quantity-input").forEach(input => {
+            const index = input.dataset.index;
+            let nuevaCantidad = parseInt(input.value);
             if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
                 nuevaCantidad = 1;
                 input.value = 1;
             }
-
             pedido[index].cantidad = nuevaCantidad;
             pedido[index].total = pedido[index].precio * nuevaCantidad;
         });
 
-        renderizarCarrito(); // Actualizar la vista del carrito
+        renderizarCarrito(); // Actualiza la vista
     }
 
     function mostrarBotonActualizar() {
         const botonActualizar = document.getElementById("update-cart");
         if (botonActualizar) {
-            botonActualizar.style.display = "block"; // Asegurar que el botón se muestre cuando el usuario cambia la cantidad
+            botonActualizar.style.display = "block";
         }
     }
 
     // Función para eliminar un producto del carrito
     function eliminarProducto(event) {
         const index = event.target.dataset.index;
-        pedido.splice(index, 1); // Elimina el producto del array
-
+        pedido.splice(index, 1);
         if (pedido.length === 0) {
             localStorage.removeItem("pedido");
             carritoLista.innerHTML = "<p>No hay productos en el carrito.</p>";
@@ -155,8 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             renderizarCarrito();
         }
-
-        actualizarVisibilidadBotones(); // Verificar visibilidad de los botones
+        actualizarVisibilidadBotones();
         actualizarVisibilidadDesglose();
         actualizarVisibilidadBotonMenu();
         actualizarCarritoHeader();
@@ -167,18 +185,30 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarrito();
     });
 
-    // Evento para finalizar la orden
-    botonFinalizar.addEventListener("click", () => {
-        const numeroOrden = Math.floor(100000 + Math.random() * 900000); // Genera un número aleatorio
-        localStorage.setItem("order-number", numeroOrden); // Guarda el número de orden en localStorage
+    // Evento para finalizar la orden usando SweetAlert
+    botonFinalizar.addEventListener("click", async () => {
+        Swal.fire({
+            title: "Finalizando orden...",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
 
-        localStorage.removeItem("pedido"); // Limpia el carrito después de finalizar
-        window.location.href = "order-confirmation.html"; // Redirige a la página de confirmación
+        // Simular retardo de 2 segundos para procesar la orden
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const numeroOrden = Math.floor(100000 + Math.random() * 900000);
+        localStorage.setItem("order-number", numeroOrden);
+        localStorage.removeItem("pedido");
+
+        Swal.close();
+        window.location.href = "order-confirmation.html";
     });
 
     // Evento para seguir comprando
     botonSeguirComprando.addEventListener("click", () => {
-        window.location.href = "products.html"; // Redirige a la página de productos
+        window.location.href = "products.html";
     });
 
     // Evento para regresar al menú principal cuando el carrito está vacío
@@ -192,3 +222,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // Renderizar el carrito al cargar la página
     renderizarCarrito();
 });
+

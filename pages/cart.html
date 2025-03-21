@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaming store - Lista de productos</title>
-    <script src="https://kit.fontawesome.com/164308ba52.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://kit.fontawesome.com/164308ba52.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="../assets/js/login.js"></script>
     <script defer src="../assets/js/cart-header.js"></script>
     <script defer src="../assets/js/cart.js"></script>
 </head>
@@ -23,15 +25,24 @@
                     <li class="menu-item"><a href="../index.html" class="menu-link">Inicio</a></li>
                     <li class="menu-item"><a href="#" class="menu-link">Nosotros</a></li>
                     <li class="menu-item"><a href="./products.html" class="menu-link">Productos</a></li>
-                    <li class="menu-item"><a href="#" class="menu-link">Contacto</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">Ofertas</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">Lanzamientos</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">Contactanos</a></li>
                 </ul>
             </nav>
 
-            <div class="cart-container">
-                <a href="../pages/cart.html" class="cart-link">
-                    <i class="fa-solid fa-cart-shopping cart-icon"></i>
-                    <span id="cart-counter">0</span> items - $<span id="cart-total">0.00</span>
-                </a>
+            <div class="header-right-container">
+                <div class="cart-container">
+                    <a href="../pages/cart.html" class="cart-link">
+                        <i class="fa-solid fa-cart-shopping cart-icon"></i>
+                        <span id="cart-counter">0</span> items - $<span id="cart-total">0.00</span>
+                    </a>
+                </div>
+                <div class="logout-container">
+                    <button id="logout-button" class="logout-btn" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
+                </div>
             </div>
         </div>
     </header>

@@ -7,6 +7,7 @@
     <title>Orden Confirmada</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://kit.fontawesome.com/164308ba52.js" crossorigin="anonymous"></script>
+    <script defer src="../assets/js/hamburguer-menu.js"></script>
     <script defer src="../assets/js/login.js"></script>
     <script defer src="../assets/js/cart-header.js"></script>
     <script defer src="../assets/js/order-confirmation.js"></script>
@@ -15,12 +16,18 @@
 <body>
     <header class="header-site">
         <div class="header-container container">
-            <div class="logo-container">
-                <h1 class="logo"><a href="../index.html" class="logo-link">GamingStore</a></h1>
+            <div class="header-left-container">
+                <div class="hamburguer-container">
+                    <button class="hamburguer-open" id="open"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="logo-container">
+                    <h1 class="logo"><a href="../index.html" class="logo-link">GamingStore</a></h1>
+                </div>
             </div>
 
             <nav class="navbar">
-                <ul class="menu">
+                <ul class="menu" id="menu-main">
+                    <button class="hamburguer-close" id="close"><i class="fa-solid fa-xmark"></i></button>
                     <li class="menu-item"><a href="../index.html" class="menu-link">Inicio</a></li>
                     <li class="menu-item"><a href="#" class="menu-link">Nosotros</a></li>
                     <li class="menu-item"><a href="./products.html" class="menu-link">Productos</a></li>
@@ -32,14 +39,17 @@
 
             <div class="header-right-container">
                 <div class="cart-container">
-                    <a href="../pages/cart.html" class="cart-link">
+                    <a href="./cart.html" class="cart-link">
                         <i class="fa-solid fa-cart-shopping cart-icon"></i>
-                        <span id="cart-counter">0</span> items - $<span id="cart-total">0.00</span>
+                        <div class="cart-summary">
+                            <span id="cart-counter">0</span> items - $<span id="cart-total">0.00</span>
+                        </div>
                     </a>
                 </div>
                 <div class="logout-container">
                     <button id="logout-button" class="logout-btn" style="display: none;">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        <i class="fas fa-sign-out-alt logout-icon"></i>
+                        <span class="logout-text">Cerrar sesión</span>
                     </button>
                 </div>
             </div>

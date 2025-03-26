@@ -95,3 +95,8 @@ root/
 - Se valida:
   - Que la cantidad no supere el stock al realizar un pedido o actualizar el carrito.
   - Que el carrito no esté vacío antes de finalizar el pedido.
+
+## Autor
+
+- Proyecto desarrollado por  Carlos Hinojosa 
+- Año: 2025

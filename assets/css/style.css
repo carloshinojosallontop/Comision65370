@@ -43,10 +43,6 @@ input {
     text-align: center;
 }
 
-button:active {
-    all: unset;
-}
-
 .container {
     width: min(90%, 90rem);
     margin: 0 auto;

@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Swal.fire({
       title: 'Iniciar sesión',
       html: `
-          <label for="swal-username">Usuario:&nbsp;&nbsp;&nbsp;</label>
-          <input type="text" id="swal-username" class="swal2-input">
-          <label for="swal-password">Password:</label>
-          <input type="password" id="swal-password" class="swal2-input">
-        `,
+      <label for="swal-username">Usuario:&nbsp;&nbsp;&nbsp;</label>
+      <input type="text" id="swal-username" class="swal2-input">
+      <label for="swal-password">Password:</label>
+      <input type="password" id="swal-password" class="swal2-input">
+    `,
       confirmButtonText: 'Ingresar',
       allowOutsideClick: false,
       allowEscapeKey: false,
@@ -32,25 +32,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (username === 'admin' && password === '1234') {
-          localStorage.setItem("loggedIn", "true");
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Bienvenido',
-            text: 'Inicio de sesión exitoso',
-            showConfirmButton: false,
-            timer: 1500
-          });
-
-          logoutButton.style.display = "inline-flex";
-
+          // Retornamos un objeto que indique éxito.
+          return { loginOk: true };
         } else {
           Swal.showValidationMessage(`Usuario o contraseña incorrectos`);
           return false;
         }
       }
     }).then((result) => {
-      if (localStorage.getItem("loggedIn") !== "true") {
+      if (result.value && result.value.loginOk) {
+        // Si la validación fue exitosa, guardamos el estado y mostramos el modal de éxito.
+        localStorage.setItem("loggedIn", "true");
+        logoutButton.style.display = "inline-flex";
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Bienvenido',
+          text: 'Inicio de sesión exitoso',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else {
+        // Si el login no fue exitoso, volvemos a mostrar el popup.
         mostrarPopupLogin();
       }
     });
@@ -60,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
   logoutButton.addEventListener("click", () => {
     Swal.fire({
       title: '¿Cerrar sesión?',
-      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, cerrar',
       cancelButtonText: 'Cancelar'
@@ -68,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (result.isConfirmed) {
         localStorage.removeItem("loggedIn");
         Swal.fire({
-          icon: 'success',
           title: 'Sesión cerrada',
           text: 'Debes iniciar sesión nuevamente',
           showConfirmButton: false,

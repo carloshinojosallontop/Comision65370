@@ -26,6 +26,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    overflow-x: hidden;
 }
 
 main {
@@ -41,6 +43,10 @@ input {
     text-align: center;
 }
 
+button:active {
+    all: unset;
+}
+
 .container {
     width: min(90%, 90rem);
     margin: 0 auto;
@@ -49,6 +55,7 @@ input {
 /* Header */
 .header-site {
     background: radial-gradient(circle, #cc0000 40%, #990000 80%);
+    width: 100%;
     padding: 1rem;
 
     display: flex;
@@ -109,7 +116,7 @@ input {
 
     padding: .625rem .9375rem;
 
-    color: white;
+    color: #ffffff;
     font-weight: bold;
 
     display: flex;
